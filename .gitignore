@@ -41,3 +41,8 @@ Thumbs.db
 ###########################
 /bin
 .settings
+
+# Dr.Racket Files to Ignore #
+#############################
+*.scm~
+
