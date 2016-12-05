@@ -18,7 +18,7 @@
   (lambda (labels tree)
    (tree-map (lambda(set)(set-minus set labels))tree)))
 
-;;;Fro the 1st function the function takes in another function and a tree
+;;;For the 1st function the function takes in another function and a tree
 ;;;It then makes a new tree by traversing the given tree and copying the
 ;;;The value of the label after applying the function to it
 ;;;For the 2nd function I take in the set of labels to be removed
