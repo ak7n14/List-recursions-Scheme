@@ -7,15 +7,19 @@
 (load "tree-implementation-list.scm")
 (define tree-merge
   (lambda (t1 t2)
-   (cond((and (null? t1) (null? t2)) '())
-        ((and (node? t1) (node? t2)) (make-node (set-union (tree-labels t1) (tree-labels t2))
-                                                (tree-merge (node-left t1) (node-left t2))
-                                                (tree-merge (node-right t1) (node-right t2))))
-        ((and (leaf? t1) (leaf? t2)) (make-leaf(set-union (tree-labels t1) (tree-labels t2))))
-        ((leaf? t1) (make-node (set-union (tree-labels t1) (tree-labels t2))
-                              (node-left t2) (node-right t2)))
-        ((leaf? t2) (make-node (set-union (tree-labels t1) (tree-labels t2))
-                              (node-left t1) (node-right t1))))))
+    (cond((and (null? t1) (null? t2)) '())
+         ((and (null? t1) (node? t2)) (make-node ((tree-labels t2))(node-left t2)(node-right t2)))
+         ((and (null? t2) (node? t1)) (make-node ((tree-labels t1))(node-left t1)(node-right t1)))
+         ((and (null? t1) (leaf? t2)) (make-leaf (tree-labels t2)))
+         ((and (null? t2) (leaf? t1)) (make-leaf (tree-labels t1)))
+         ((and (node? t1) (node? t2)) (make-node (set-union (tree-labels t1) (tree-labels t2))
+                                                 (tree-merge (node-left t1) (node-left t2))
+                                                 (tree-merge (node-right t1) (node-right t2))))
+         ((and (leaf? t1) (leaf? t2)) (make-leaf(set-union (tree-labels t1) (tree-labels t2))))
+         ((leaf? t1) (make-node (set-union (tree-labels t1) (tree-labels t2))
+                                (node-left t2) (node-right t2)))
+         ((leaf? t2) (make-node (set-union (tree-labels t1) (tree-labels t2))
+                                (node-left t1) (node-right t1))))))
 
 ;;;The function takes in 2 trees. It reccursively traverses the whole tree
 ;;;It checks if the current elements in both the trees are nodes or leaves
